@@ -1,6 +1,19 @@
 from credentials import *
 from twython import TwythonStreamer
 import re
+import os
+
+
+def retrieve_key_and_token():
+    # Consumer API keys:
+    consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
+    consumer_secret = os.environ.get("TWITTER_CONSUMER_SECRET")
+
+    # Access token & access token secret:
+    access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
+    access_secret = os.environ.get("TWITTER_ACCESS_SECRET")
+
+    return consumer_key, consumer_secret, access_token, access_secret
 
 
 class MyStreamer(TwythonStreamer):
@@ -28,6 +41,7 @@ def print_tweet_list(tweet_list: list):
         print('-----------------------------------')
 
 tweets = []
-stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET)
+k, k_secret, t, t_secret = retrieve_key_and_token()
+stream = MyStreamer(k, k_secret, t, t_secret)
 stream.statuses.filter(track='macron', language='fr')
 print_tweet_list(tweets)
