@@ -1,4 +1,3 @@
-from credentials import *
 from twython import TwythonStreamer
 import re
 import os
